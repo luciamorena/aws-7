@@ -18,22 +18,22 @@ jobs:
 
       - name: RUN COMANDOS SSH
 
-        uses: D3rHase/ssh-command-action@v0.2.1
-        with:
-          HOST: ${{secrets.HOST1}}        
-          # PORT: ${{secrets.PORT}}
-          USER: ${{secrets.USERNAME}}
-          PRIVATE_SSH_KEY: ${{secrets.KEY}} 
-          COMMAND: |
-            cd /home/ubuntu &&
-            rm -rf /home/ubuntu/aws-7 &&
-            git clone https://github.com/luciamorena/aws-7.git &&
-            cd /home/ubuntu/aws-7 &&
-            git pull &&
-            cd /home/ubuntu/aws-7 &&
-            npm install && 
-            npm run build --if-present &&
-            echo 'DEPLOY FIM'   
+        # uses: D3rHase/ssh-command-action@v0.2.1
+        # with:
+        #   HOST: ${{secrets.HOST1}}        
+        #   # PORT: ${{secrets.PORT}}
+        #   USER: ${{secrets.USERNAME}}
+        #   PRIVATE_SSH_KEY: ${{secrets.KEY}} 
+        #   COMMAND: |
+        #     cd /home/ubuntu &&
+        #     rm -rf /home/ubuntu/aws-7 &&
+        #     git clone https://github.com/luciamorena/aws-7.git &&
+        #     cd /home/ubuntu/aws-7 &&
+        #     git pull &&
+        #     cd /home/ubuntu/aws-7 &&
+        #     npm install && 
+        #     npm run build --if-present &&
+        #     echo 'DEPLOY FIM'   
 
 
 
@@ -53,6 +53,23 @@ jobs:
         #     docker run --name server -d --restart=always -p 80:80 -v /home/ubuntu/aws-7/dist/:/usr/share/nginx/html nginx &&
         #     echo 'DEPLOY FIM'   
 
+
+        uses: appleboy/ssh-action@master
+        with:
+          host: "${{ secrets.HOST1 }}" 
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          # port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu &&
+            rm -rf /home/ubuntu/aws-7 &&
+            git clone https://github.com/luciamorena/aws-7.git &&
+            cd /home/ubuntu/aws-7 &&
+            git pull &&
+            cd /home/ubuntu/aws-7 &&
+            npm install && 
+            npm run build --if-present &&
+            echo 'DEPLOY FIM'   
 
 
         # uses: appleboy/ssh-action@master
