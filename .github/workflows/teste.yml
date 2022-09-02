@@ -1,8 +1,8 @@
-name: TESTE
+# name: TESTE
 
-on: [push]
+# on: [push]
 
-jobs:
+# jobs:
   
   # master:
   #   runs-on: ubuntu-latest
@@ -54,7 +54,47 @@ jobs:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+name: DEPLOY - MAIN
+
+# on: [push]
+# on:
+  # push:
+  # workflow_dispatch:
+on:
+  push:
+    branches: ["*"]
+
+jobs:
+
   master:
+    # if: false
+    # if: ${{ false }}
+    # if: ${{github.ref == 'refs/heads/main' && github.repository == 'luciamorena/aws-5'}}
+    # if: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
+    runs-on: ubuntu-latest
+    # environment:
+      # name: prod
+      # url: 'http://ilsonfilho.tk'
+    steps:
+      - name: RUN MASTER
+        run: echo 'RUN MASTER'
+
+  prod:
     runs-on: ubuntu-latest
 
     steps:
@@ -67,11 +107,10 @@ jobs:
       run: npm install
     - name: Run build task
       run: npm run build --if-present
-
     - name: Deploy to Server PROD
       uses: easingthemes/ssh-deploy@main
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"
           SOURCE: "dist/"
           # SOURCE: "/"
@@ -79,7 +118,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST1 }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           # TARGET: ${{ secrets.REMOTE_TARGET }}
-          TARGET: "/home/ubuntu/aws-7"
+          TARGET: "/home/ubuntu/sistema"
+          # EXCLUDE: "/dist/, /node_modules/"
+    - name: DEPLOY FIM PROD
+      run: echo 'FIM DO DEPLOY PROD'
 
-    - name: DEPLOY FIM
-      run: echo 'FIM DO DEPLOY'
+
