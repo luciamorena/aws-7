@@ -123,4 +123,16 @@ jobs:
     - name: DEPLOY FIM PROD
       run: echo 'FIM DO DEPLOY PROD'
 
+    - name: CONTAINER
+      uses: D3rHase/ssh-command-action@v0.2.1
+      with:
+        HOST: ${{secrets.HOST1}}        
+        # PORT: ${{secrets.PORT}}
+        USER: ${{secrets.USERNAME}}
+        PRIVATE_SSH_KEY: ${{secrets.KEY}} 
+        COMMAND: |
+          docker rm -f server && 
+          docker run --name server -d --restart=always -p 80:80 -v /home/ubuntu/sistema/:/usr/share/nginx/html nginx &&
+          echo 'CONTAINER FIM'   
+
 
