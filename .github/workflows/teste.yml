@@ -32,6 +32,7 @@ jobs:
             git pull &&
             cd /home/ubuntu/aws-7 &&
             npm install && 
+            npm run build
             echo 'DEPLOY FIM'   
 
 
