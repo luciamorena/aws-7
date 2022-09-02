@@ -1,0 +1,66 @@
+name: TESTE
+
+on: [push]
+
+jobs:
+  master:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: RUN MASTER
+        run: echo 'RUN MASTER'
+
+      - name: RUN MULTIPLOS
+        run: |
+          echo "TESTE 1"
+          echo "TESTE 2"
+          echo "TESTE 3"
+
+      - name: RUN COMANDOS SSH
+
+        uses: D3rHase/ssh-command-action@v0.2.1
+        with:
+          HOST: ${{secrets.HOST1}}        
+          # PORT: ${{secrets.PORT}}
+          USER: ${{secrets.USERNAME}}
+          PRIVATE_SSH_KEY: ${{secrets.KEY}} 
+          COMMAND: |
+            cd /home/ubuntu &&
+            rm -rf /home/ubuntu/aws-7 &&
+            git clone https://github.com/luciamorena/aws-7.git &&
+            cd /home/ubuntu/aws-7 &&
+            git pull &&
+            node run build
+            echo 'DEPLOY FIM'   
+
+
+
+        # uses: D3rHase/ssh-command-action@v0.2.1
+        # with:
+        #   HOST: ${{secrets.HOST1}}        
+        #   # PORT: ${{secrets.PORT}}
+        #   USER: ${{secrets.USERNAME}}
+        #   PRIVATE_SSH_KEY: ${{secrets.KEY}} 
+        #   COMMAND: |
+        #     cd /home/ubuntu &&
+        #     rm -rf /home/ubuntu/aws-7 &&
+        #     git clone https://github.com/luciamorena/aws-7.git &&
+        #     cd /home/ubuntu/aws-7 &&
+        #     git pull &&
+        #     docker rm -f server && 
+        #     docker run --name server -d --restart=always -p 80:80 -v /home/ubuntu/aws-7/dist/:/usr/share/nginx/html nginx &&
+        #     echo 'DEPLOY FIM'   
+
+
+
+        # uses: appleboy/ssh-action@master
+        # with:
+        #   host: "${{ secrets.HOST1 }}" 
+        #   username: ${{ secrets.USERNAME }}
+        #   key: ${{ secrets.KEY }}
+        #   # port: ${{ secrets.PORT }}
+        #   script: |
+        #     cd /home/ubuntu &&
+        #     git clone https://github.com/luciamorena/aws-7.git &&
+        #     cd /home/ubuntu/aws-7 &&
+        #     git pull 
