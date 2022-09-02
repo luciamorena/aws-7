@@ -17,7 +17,8 @@
   display: grid;
   place-items: center;
   height: 100vh;
-  background: var(--background);
+  /* background: var(--background); */
+  background: linear-gradient(45deg,red,blue);
 }
 
 .container h1 {
