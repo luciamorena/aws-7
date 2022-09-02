@@ -76,8 +76,8 @@ jobs:
           SOURCE: "dist/"
           # SOURCE: "/"
           # SOURCE: "index.html"
-          REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: ${{ secrets.USER }}
+          REMOTE_HOST: ${{ secrets.HOST1 }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
           # TARGET: ${{ secrets.REMOTE_TARGET }}
           TARGET: "/home/ubuntu/aws-7"
 
