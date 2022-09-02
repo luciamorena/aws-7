@@ -1,7 +1,8 @@
 :root {
   --background: #242424;
   --corBackground: #ddd;
-  --corHover: red;
+  --corTexto:white;
+  --corHover: rgba(0,0,0,.5);
 }
 
 * {
@@ -9,6 +10,7 @@
   padding: 0;
   box-sizing: border-box;
   cursor:pointer;
+  user-select:none;
 }
 
 .container {
@@ -27,4 +29,5 @@
 
 .container h1:hover {
   background: var(--corHover);
+  color:var(--corTexto)
 }
